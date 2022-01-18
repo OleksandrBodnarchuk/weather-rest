@@ -5,6 +5,8 @@ import org.springframework.web.client.RestTemplate;
 import pl.alex.wearher.model.WeatherDTO;
 import pl.alex.wearher.webclient.weather.dto.OpenWeatherWeatherDto;
 
+import java.util.Date;
+
 @Component
 public class WeatherClient {
     public static final String WEATHER_URL = "http://api.openweathermap.org/data/2.5/";
@@ -15,9 +17,13 @@ public class WeatherClient {
         OpenWeatherWeatherDto openWeatherWeatherDto = callGetMethod("weather?q={city}&appid={apiKey}&units=metric&lang=PL", OpenWeatherWeatherDto.class,
                 city, API_KEY);
         return WeatherDTO.builder()
+                .city(openWeatherWeatherDto.getName())
+                .date(new Date(openWeatherWeatherDto.getDt()*1000))
                 .temperature(openWeatherWeatherDto.getMain().getTemp())
-                .pressure(openWeatherWeatherDto.getMain().getPressure())
-                .humidity(openWeatherWeatherDto.getMain().getHumidity())
+                .temp_min(openWeatherWeatherDto.getMain().getTemp_min())
+                .temp_max(openWeatherWeatherDto.getMain().getTemp_max())
+                .feelsLike(openWeatherWeatherDto.getMain().getFeels_like())
+                .humidity(openWeatherWeatherDto.getMain().getHumidity()+"%") // to String
                 .windSpeed(openWeatherWeatherDto.getWind().getSpeed())
                 .build();
     }

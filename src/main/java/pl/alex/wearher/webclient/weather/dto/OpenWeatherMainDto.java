@@ -5,7 +5,9 @@ import lombok.Getter;
 @Getter
 public class OpenWeatherMainDto {
     private float temp;
-    private int pressure;
+    private float feels_like;
+    private float temp_min;
+    private float temp_max;
     private int humidity;
 
 }

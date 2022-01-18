@@ -13,8 +13,8 @@ public class WeatherService {
 
     private final WeatherClient weatherClient;
 
-    public WeatherDTO getWeather() {
-        return weatherClient.getWeatherForCity("warszawa");
+    public WeatherDTO getWeather(String city) {
+        return weatherClient.getWeatherForCity(city);
     }
 
 

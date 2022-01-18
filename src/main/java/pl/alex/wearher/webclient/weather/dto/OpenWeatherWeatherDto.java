@@ -6,4 +6,6 @@ import lombok.Getter;
 public class OpenWeatherWeatherDto {
     private OpenWeatherMainDto main;
     private OpenWeatherWindDto wind;
+    private long dt;
+    private String name;
 }
