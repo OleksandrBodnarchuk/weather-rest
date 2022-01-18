@@ -17,4 +17,9 @@ public class WeatherController {
     public WeatherDTO getWeather(@PathVariable String city) {
         return weatherService.getWeather(city);
     }
+
+    @GetMapping("/weather/forecast/{city}")
+    public String getWeatherForecast(@PathVariable String city) {
+        return weatherService.getForecast(city);
+    }
 }

@@ -17,5 +17,8 @@ public class WeatherService {
         return weatherClient.getWeatherForCity(city);
     }
 
+    public String getForecast(String city){
+        return weatherClient.getForecast(city);
+    }
 
 }

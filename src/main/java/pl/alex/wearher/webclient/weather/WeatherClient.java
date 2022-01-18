@@ -14,8 +14,7 @@ public class WeatherClient {
     private final RestTemplate restTemplate = new RestTemplate();
 
     public WeatherDTO getWeatherForCity(String city) {
-        OpenWeatherWeatherDto openWeatherWeatherDto = callGetMethod("weather?q={city}&appid={apiKey}&units=metric&lang=PL", OpenWeatherWeatherDto.class,
-                city, API_KEY);
+        OpenWeatherWeatherDto openWeatherWeatherDto = getOpenWeatherWeatherDtoByCity(city);
         return WeatherDTO.builder()
                 .city(openWeatherWeatherDto.getName())
                 .date(new Date(openWeatherWeatherDto.getDt()*1000))
@@ -28,7 +27,10 @@ public class WeatherClient {
                 .build();
     }
 
-    public String getForecast(double lat, double lon) {
+    public String getForecast(String city) {
+        OpenWeatherWeatherDto openWeatherWeatherDto = getOpenWeatherWeatherDtoByCity(city);
+        double lat = openWeatherWeatherDto.getCoord().getLat();
+        double lon = openWeatherWeatherDto.getCoord().getLon();
         return callGetMethod("onecall?lat={lat}&lon={lon}&exclude=minutely,hourly&appid={apiKey}&units=metric&lang=pl", String.class,
                 lat, lon, API_KEY);
     }
@@ -36,5 +38,10 @@ public class WeatherClient {
     private <T> T callGetMethod(String url, Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(WEATHER_URL + url,
                 responseType, objects);
+    }
+
+    private OpenWeatherWeatherDto getOpenWeatherWeatherDtoByCity(String city) {
+        return callGetMethod("weather?q={city}&appid={apiKey}&units=metric&lang=PL", OpenWeatherWeatherDto.class,
+                city, API_KEY);
     }
 }

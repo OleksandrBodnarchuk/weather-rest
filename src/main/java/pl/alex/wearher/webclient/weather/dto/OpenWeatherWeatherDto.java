@@ -8,4 +8,6 @@ public class OpenWeatherWeatherDto {
     private OpenWeatherWindDto wind;
     private long dt;
     private String name;
+    private OpenWeatherCityCoordinatesDto coord;
+
 }
