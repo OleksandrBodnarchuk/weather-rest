@@ -2,6 +2,8 @@ package pl.alex.wearher.webclient.weather;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import pl.alex.wearher.model.WeatherDTO;
+import pl.alex.wearher.webclient.weather.dto.OpenWeatherWeatherDto;
 
 @Component
 public class WeatherClient {
@@ -9,9 +11,15 @@ public class WeatherClient {
     public static final String API_KEY = "56ef07a391a083c2cc07941f43640370";
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public String getWeatherForCity(String city) {
-        return callGetMethod("weather?q={city}&appid={apiKey}&units=metric&lang=PL", String.class,
+    public WeatherDTO getWeatherForCity(String city) {
+        OpenWeatherWeatherDto openWeatherWeatherDto = callGetMethod("weather?q={city}&appid={apiKey}&units=metric&lang=PL", OpenWeatherWeatherDto.class,
                 city, API_KEY);
+        return WeatherDTO.builder()
+                .temperature(openWeatherWeatherDto.getMain().getTemp())
+                .pressure(openWeatherWeatherDto.getMain().getPressure())
+                .humidity(openWeatherWeatherDto.getMain().getHumidity())
+                .windSpeed(openWeatherWeatherDto.getWind().getSpeed())
+                .build();
     }
 
     public String getForecast(double lat, double lon) {
