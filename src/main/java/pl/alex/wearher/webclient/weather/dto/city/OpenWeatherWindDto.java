@@ -1,4 +1,4 @@
-package pl.alex.wearher.webclient.weather.dto;
+package pl.alex.wearher.webclient.weather.dto.city;
 
 import lombok.Getter;
 

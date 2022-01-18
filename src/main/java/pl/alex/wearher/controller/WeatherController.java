@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import pl.alex.wearher.model.WeatherDTO;
+import pl.alex.wearher.model.WeatherForecastDTO;
 import pl.alex.wearher.service.WeatherService;
 
 @RestController
@@ -19,7 +20,7 @@ public class WeatherController {
     }
 
     @GetMapping("/weather/forecast/{city}")
-    public String getWeatherForecast(@PathVariable String city) {
+    public WeatherForecastDTO getWeatherForecast(@PathVariable String city) {
         return weatherService.getForecast(city);
     }
 }

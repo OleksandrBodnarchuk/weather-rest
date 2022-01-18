@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.alex.wearher.model.WeatherDTO;
+import pl.alex.wearher.model.WeatherForecastDTO;
 import pl.alex.wearher.webclient.weather.WeatherClient;
 
 @Service
@@ -17,7 +18,7 @@ public class WeatherService {
         return weatherClient.getWeatherForCity(city);
     }
 
-    public String getForecast(String city){
+    public WeatherForecastDTO getForecast(String city){
         return weatherClient.getForecast(city);
     }
 
